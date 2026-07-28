@@ -63,7 +63,7 @@ export default function NoteForm({ onCancel }: NoteFormProps) {
     actions: FormikHelpers<CreateNote>,
   ) => {
     mutate(formValues);
-    actions.resetForm();
+    actions.resetForm(); // todo?: reset only after successful post request
   };
 
   return (
