@@ -8,13 +8,14 @@ import Modal from "../Modal/Modal";
 import NoteForm from "../NoteForm/NoteForm";
 import SearchBox from "../SearchBox/SearchBox";
 import { useDebouncedCallback } from "use-debounce";
+import Banner from "../Banner/Banner";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpenModal, setIsModalOpen] = useState(false);
 
-  const { data } = useQuery({
+  const { data, isError } = useQuery({
     queryKey: ["notes", currentPage, searchQuery],
     queryFn: () => {
       return fetchNotes(currentPage, searchQuery);
@@ -46,8 +47,12 @@ export default function App() {
       </header>
 
       <main>
-        {data && data.notes && data.notes.length > 0 && (
+        {isError && <Banner text="Error while fetching notes" type="error" />}
+
+        {data && data.notes && data.notes.length > 0 ? (
           <NoteList notes={data.notes} />
+        ) : (
+          <Banner text="No notes found for your request." type="info" />
         )}
       </main>
 
