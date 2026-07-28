@@ -1,3 +1,60 @@
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { fetchNotes } from "../../services/noteService";
+import NoteList from "../NoteList/NoteList";
+import css from "./App.module.css";
+import { useState } from "react";
+import Pagination from "../Pagination/Pagination";
+import Modal from "../Modal/Modal";
+import NoteForm from "../NoteForm/NoteForm";
+import SearchBox from "../SearchBox/SearchBox";
+
 export default function App() {
-  return <></>;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isOpenModal, setIsModalOpen] = useState(false);
+
+  const { data } = useQuery({
+    queryKey: ["notes", currentPage, searchQuery],
+    queryFn: () => {
+      return fetchNotes(currentPage, searchQuery);
+    },
+    placeholderData: keepPreviousData,
+  });
+
+  function handleSearch(searchQuery: string) {
+    setCurrentPage(1);
+    setSearchQuery(searchQuery);
+  }
+
+  return (
+    <div className={css.app}>
+      <header className={css.toolbar}>
+        <SearchBox onSearch={handleSearch} />
+
+        {data && data.totalPages > 0 && (
+          <Pagination
+            totalPages={data.totalPages}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        )}
+
+        <button className={css.button} onClick={() => setIsModalOpen(true)}>
+          Create note +
+        </button>
+      </header>
+
+      <main>
+        {data && data.notes && data.notes.length > 0 && (
+          <NoteList notes={data.notes} />
+        )}
+      </main>
+
+      {isOpenModal && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <NoteForm onCancel={() => setIsModalOpen(false)} />
+        </Modal>
+      )}
+    </div>
+  );
 }
