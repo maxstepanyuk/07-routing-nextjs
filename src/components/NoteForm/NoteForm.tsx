@@ -13,7 +13,13 @@ const initialValues: CreateNote = {
   tag: "Todo",
 };
 
-const validTags: NoteTag[] = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
+const validTags: NoteTag[] = [
+  "Todo",
+  "Work",
+  "Personal",
+  "Meeting",
+  "Shopping",
+];
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().min(3).max(50).required(),
