@@ -6,6 +6,7 @@ import type { CreateNote, NoteTag } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "../../services/noteService";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const initialValues: CreateNote = {
   title: "",
@@ -52,7 +53,7 @@ export default function NoteForm({ onCancel }: NoteFormProps) {
     onError: (e) => {
       const msg = "Error creating note";
       console.log(msg, e);
-      alert(msg); // todo toast
+      toast.error(msg);
       setIsSubmitEnabled(true);
     },
   });

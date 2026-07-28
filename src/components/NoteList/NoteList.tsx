@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Note } from "../../types/note";
 import css from "./NoteList.module.css";
 import { deleteNote } from "../../services/noteService";
+import toast from "react-hot-toast";
 
 interface NoteList {
   notes: Note[];
@@ -20,7 +21,7 @@ export default function NoteList({ notes }: NoteList) {
     onError: (e) => {
       const msg = "Error deleting note";
       console.log(msg, e);
-      alert(msg); // todo toast
+      toast.error(msg)
     },
   });
 
