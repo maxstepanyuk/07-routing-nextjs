@@ -7,6 +7,7 @@ import Pagination from "../Pagination/Pagination";
 import Modal from "../Modal/Modal";
 import NoteForm from "../NoteForm/NoteForm";
 import SearchBox from "../SearchBox/SearchBox";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,15 +22,15 @@ export default function App() {
     placeholderData: keepPreviousData,
   });
 
-  function handleSearch(searchQuery: string) {
+  const handleSearchDebounced = useDebouncedCallback((searchQuery: string) => {
     setCurrentPage(1);
     setSearchQuery(searchQuery);
-  }
+  }, 300);
 
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        <SearchBox onSearch={handleSearch} />
+        <SearchBox onSearch={handleSearchDebounced} query={searchQuery} />
 
         {data && data.totalPages > 0 && (
           <Pagination
