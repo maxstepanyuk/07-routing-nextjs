@@ -21,6 +21,7 @@ export default function App() {
       return fetchNotes(currentPage, searchQuery);
     },
     placeholderData: keepPreviousData,
+    staleTime: 5 * 1000,
   });
 
   const handleSearchDebounced = useDebouncedCallback((searchQuery: string) => {
