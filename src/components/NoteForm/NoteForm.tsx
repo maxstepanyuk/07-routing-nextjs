@@ -33,28 +33,20 @@ interface NoteFormProps {
 }
 
 export default function NoteForm({ onCancel }: NoteFormProps) {
-  const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
-
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createNote,
-    onMutate: () => {
-      setIsSubmitEnabled(false);
-    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["notes"],
       });
-
-      setIsSubmitEnabled(true);
       onCancel();
     },
     onError: (e) => {
       const msg = "Error creating note";
       console.log(msg, e);
       toast.error(msg);
-      setIsSubmitEnabled(true);
     },
   });
 
@@ -74,8 +66,6 @@ export default function NoteForm({ onCancel }: NoteFormProps) {
         validationSchema={validationSchema}
       >
         {({ isValid, dirty }) => {
-          setIsSubmitEnabled(isValid && dirty);
-
           return (
             <Form className={css.form}>
               <div className={css.formGroup}>
@@ -136,9 +126,9 @@ export default function NoteForm({ onCancel }: NoteFormProps) {
                 <button
                   type="submit"
                   className={css.submitButton}
-                  disabled={!isSubmitEnabled}
+                  disabled={!isValid || !dirty || isPending}
                 >
-                  Create note
+                  {isPending ? "Creating..." : "Create note"}
                 </button>
               </div>
             </Form>
