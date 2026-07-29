@@ -16,5 +16,9 @@ export default function Banner({ text, type = "log" }: BannerProps) {
     type === "error" && css.error,
   );
 
-  return <p className={classes}>{text}</p>;
+  return (
+    <div className={css.container}>
+      <p className={classes}>{text}</p>
+    </div>
+  );
 }
