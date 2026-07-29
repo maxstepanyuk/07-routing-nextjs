@@ -15,7 +15,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpenModal, setIsModalOpen] = useState(false);
 
-  const { data, isError } = useQuery({
+  const { data, isError, isFetching, isStale } = useQuery({
     queryKey: ["notes", currentPage, searchQuery],
     queryFn: () => {
       return fetchNotes(currentPage, searchQuery);
@@ -47,12 +47,17 @@ export default function App() {
       </header>
 
       <main>
+        {isFetching && isStale && <Banner text="Loading" type="log" />}
         {isError && <Banner text="Error while fetching notes" type="error" />}
 
         {data && data.notes && data.notes.length > 0 ? (
           <NoteList notes={data.notes} />
         ) : (
-          <Banner text="No notes found for your request." type="info" />
+          <>
+            {!isError && !isFetching && (
+              <Banner text="No notes found for your request." type="info" />
+            )}
+          </>
         )}
       </main>
 
