@@ -20,7 +20,7 @@ export async function fetchNotes(
   page?: number,
   search?: string,
 ): Promise<FetchNotesResponse> {
-  const { data } = await notesApi.get("/notes", {
+  const { data } = await notesApi.get<FetchNotesResponse>("/notes", {
     params: {
       page,
       search,
