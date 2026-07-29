@@ -5,7 +5,6 @@ import css from "./NoteForm.module.css";
 import type { CreateNote, NoteTag } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "../../services/noteService";
-import { useState } from "react";
 import toast from "react-hot-toast";
 
 const initialValues: CreateNote = {
