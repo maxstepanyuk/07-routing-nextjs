@@ -10,8 +10,10 @@ export default function Footer() {
         <div className={css.wrap}>
           <p>Developer: Maks Step (maxstepanyuk)</p>
           <p>
-            Contact us:
-            <Link href="https://maksstep.com" target="_blank">maksstep.com</Link>
+            Contact: 
+            <Link href="https://maksstep.com" target="_blank">
+              maksstep.com
+            </Link>
           </p>
         </div>
       </div>
