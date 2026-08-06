@@ -12,6 +12,7 @@ export default function NotesError({ error }: NotesErrorProps) {
       <Banner
         text={"Could not fetch the list of notes. " + error.name}
         type="error"
+        positionStatic
       />
       <p>{error.message}</p>
     </>
