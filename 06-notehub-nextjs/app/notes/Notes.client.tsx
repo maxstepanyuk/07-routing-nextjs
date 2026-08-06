@@ -54,14 +54,14 @@ export default function NotesPageClient() {
 
       <main>
         {isFetching && isStale && <Banner text="Loading" type="log" />}
-        {isError && <Banner text="Error while fetching notes" type="error" />}
+        {isError && <Banner text="Error while fetching notes" type="error" positionStatic/>}
 
         {data && data.notes && data.notes.length > 0 ? (
           <NoteList notes={data.notes} />
         ) : (
           <>
             {!isError && !isFetching && (
-              <Banner text="No notes found for your request." type="info" />
+              <Banner text="No notes found for your request." type="info" positionStatic />
             )}
           </>
         )}
