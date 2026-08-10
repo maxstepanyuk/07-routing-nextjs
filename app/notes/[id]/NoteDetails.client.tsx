@@ -6,6 +6,7 @@ import css from "./NoteDetails.client.module.css";
 import { fetchNoteById } from "@/lib/api";
 import { useParams } from "next/navigation";
 import Banner from "@/components/Banner/Banner";
+import Link from "next/link";
 
 function formatDate(date: Date): string {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -32,17 +33,22 @@ export default function NoteDetailsClient() {
     return <Banner text="Something went wrong." type="error" positionStatic />;
 
   return (
-    <div className={css.container}>
-      <div className={css.item}>
-        <div className={css.header}>
-          <h2>{note?.title}</h2>
+    <>
+      <Link href="/notes/filter/all" className={css.backBtn}>
+        Back to notes
+      </Link>
+      <div className={css.container}>
+        <div className={css.item}>
+          <div className={css.header}>
+            <h2>{note?.title}</h2>
+          </div>
+          <p className={css.tag}>{note.tag}</p>
+          <p className={css.content}>{note.content}</p>
+          <p className={css.date}>
+            {formatDate(new Date(note.updatedAt ?? note.createdAt))}
+          </p>
         </div>
-        <p className={css.tag}>{note.tag}</p>
-        <p className={css.content}>{note.content}</p>
-        <p className={css.date}>
-          {formatDate(new Date(note.updatedAt ?? note.createdAt))}
-        </p>
       </div>
-    </div>
+    </>
   );
 }
