@@ -13,16 +13,22 @@ import Banner from "@/components/Banner/Banner";
 import NoteList from "@/components/NoteList/NoteList";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
+import { useParams } from "next/navigation";
+import { PARAMS_INDEX } from "./page";
 
 export default function NotesPageClient() {
+  const { filters } = useParams<{ filters: string[] }>();
+  const tagName = filters[PARAMS_INDEX.TAG_NAME];
+
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpenModal, setIsModalOpen] = useState(false);
 
   const { data, isError, isFetching, isStale } = useQuery({
-    queryKey: ["notes", currentPage, searchQuery],
+    // todo: order matters? if yes update
+    queryKey: ["notes", currentPage, searchQuery, tagName],
     queryFn: () => {
-      return fetchNotes(currentPage, searchQuery);
+      return fetchNotes(currentPage, searchQuery, tagName);
     },
     placeholderData: keepPreviousData,
     staleTime: 15 * 1000,
@@ -54,14 +60,24 @@ export default function NotesPageClient() {
 
       <main>
         {isFetching && isStale && <Banner text="Loading" type="log" />}
-        {isError && <Banner text="Error while fetching notes" type="error" positionStatic/>}
+        {isError && (
+          <Banner
+            text="Error while fetching notes"
+            type="error"
+            positionStatic
+          />
+        )}
 
         {data && data.notes && data.notes.length > 0 ? (
           <NoteList notes={data.notes} />
         ) : (
           <>
             {!isError && !isFetching && (
-              <Banner text="No notes found for your request." type="info" positionStatic />
+              <Banner
+                text="No notes found for your request."
+                type="info"
+                positionStatic
+              />
             )}
           </>
         )}
