@@ -9,7 +9,7 @@ import Banner from "@/components/Banner/Banner";
 import Modal from "@/components/Modal/Modal";
 import { formatDate } from "@/lib/util";
 
-export default function NoteDetailsSlotClient() {
+export default function NotePreviewClient() {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
 

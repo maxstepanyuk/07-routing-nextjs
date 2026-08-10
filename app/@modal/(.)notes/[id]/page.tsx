@@ -4,13 +4,15 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import NoteDetailsSlotClient from "./NoteDetails.clientSlot";
+import NotePreviewClient from "./NotePreview.client";
 
-type NoteDetailsSlotProps = {
+type NotePreviewSlotProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function NoteDetailsSlot({ params }: NoteDetailsSlotProps) {
+export default async function NotePreviewSlot({
+  params,
+}: NotePreviewSlotProps) {
   const { id } = await params;
 
   const queryClient = new QueryClient();
@@ -24,7 +26,7 @@ export default async function NoteDetailsSlot({ params }: NoteDetailsSlotProps) 
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NoteDetailsSlotClient />
+      <NotePreviewClient />
     </HydrationBoundary>
   );
 }
