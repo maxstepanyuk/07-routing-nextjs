@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { createNote } from "@/lib/api";
 
+// todo: export to const or api-wrapper
 const initialValues: CreateNote = {
   title: "",
   content: "",
