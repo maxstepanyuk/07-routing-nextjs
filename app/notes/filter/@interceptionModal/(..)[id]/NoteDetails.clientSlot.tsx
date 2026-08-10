@@ -7,10 +7,7 @@ import { fetchNoteById } from "@/lib/api";
 import { useParams, useRouter } from "next/navigation";
 import Banner from "@/components/Banner/Banner";
 import Modal from "@/components/Modal/Modal";
-
-function formatDate(date: Date): string {
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-}
+import { formatDate } from "@/lib/util";
 
 export default function NoteDetailsSlotClient() {
   const router = useRouter();
@@ -39,7 +36,9 @@ export default function NoteDetailsSlotClient() {
 
   return (
     <Modal onClose={onModalClose}>
-      <button onClick={onModalClose} className={css.backBtn}>Back</button>
+      <button onClick={onModalClose} className={css.backBtn}>
+        Back
+      </button>
       <div className={css.container}>
         <div className={css.item}>
           <div className={css.header}>

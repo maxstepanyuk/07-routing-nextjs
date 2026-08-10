@@ -7,10 +7,7 @@ import { fetchNoteById } from "@/lib/api";
 import { useParams } from "next/navigation";
 import Banner from "@/components/Banner/Banner";
 import Link from "next/link";
-
-function formatDate(date: Date): string {
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-}
+import { formatDate } from "@/lib/util";
 
 export default function NoteDetailsClient() {
   const { id } = useParams<{ id: string }>();
