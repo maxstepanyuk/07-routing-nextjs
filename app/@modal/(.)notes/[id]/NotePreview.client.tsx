@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import css from "./NoteDetailsSlot.client.module.css";
+import css from "./NotePreview.client.module.css";
 
 import { fetchNoteById } from "@/lib/api";
 import { useParams, useRouter } from "next/navigation";
@@ -9,7 +9,7 @@ import Banner from "@/components/Banner/Banner";
 import Modal from "@/components/Modal/Modal";
 import { formatDate } from "@/lib/util";
 
-export default function NoteDetailsSlotClient() {
+export default function NotePreviewClient() {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
 
