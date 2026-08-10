@@ -1,15 +1,6 @@
 import Link from "next/link";
 import css from "./SidebarNotes.module.css";
-import { NoteTag } from "@/types/note";
-
-// todo: export to const or api-wrapper
-const validTags: NoteTag[] = [
-  "Todo",
-  "Work",
-  "Personal",
-  "Meeting",
-  "Shopping",
-];
+import { validTags } from "@/lib/const";
 
 export default function SidebarNotes() {
   return (

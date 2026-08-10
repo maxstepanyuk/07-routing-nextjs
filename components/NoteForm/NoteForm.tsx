@@ -6,6 +6,7 @@ import type { CreateNote, NoteTag } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { createNote } from "@/lib/api";
+import { validTags } from "@/lib/const";
 
 // todo: export to const or api-wrapper
 const initialValues: CreateNote = {
@@ -13,14 +14,6 @@ const initialValues: CreateNote = {
   content: "",
   tag: "Todo",
 };
-
-const validTags: NoteTag[] = [
-  "Todo",
-  "Work",
-  "Personal",
-  "Meeting",
-  "Shopping",
-];
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().min(3).max(50).required(),
