@@ -39,6 +39,7 @@ export default function NoteDetailsSlotClient() {
 
   return (
     <Modal onClose={onModalClose}>
+      <button onClick={onModalClose} className={css.backBtn}>Back</button>
       <div className={css.container}>
         <div className={css.item}>
           <div className={css.header}>
