@@ -17,8 +17,8 @@ import { useParams } from "next/navigation";
 import { PARAMS_INDEX } from "./page";
 
 export default function NotesPageClient() {
-  const { filters } = useParams<{ filters: string[] }>();
-  const tagName = filters[PARAMS_INDEX.TAG_NAME];
+  const { slug } = useParams<{ slug: string[] }>();
+  const tagName = slug[PARAMS_INDEX.TAG_NAME];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");

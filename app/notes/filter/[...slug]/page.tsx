@@ -12,15 +12,15 @@ export const PARAMS_INDEX = {
 };
 
 interface NotesPageProps {
-  params: Promise<{ filters: string[] }>;
+  params: Promise<{ slug: string[] }>;
 }
 
 export default async function NotesPage({ params }: NotesPageProps) {
   const queryClient = new QueryClient();
 
-  const { filters } = await params;
+  const { slug } = await params;
 
-  const tagName = filters[PARAMS_INDEX.TAG_NAME];
+  const tagName = slug[PARAMS_INDEX.TAG_NAME];
 
   // note: use the same values as in default states values in AppClient
   // todo? get from a config file for the page
