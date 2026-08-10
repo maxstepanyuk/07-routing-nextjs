@@ -19,11 +19,15 @@ interface FetchNotesResponse {
 export async function fetchNotes(
   page?: number,
   search?: string,
+  tag?: string,
 ): Promise<FetchNotesResponse> {
+  tag = tag !== "all" ? tag : undefined;
+
   const { data } = await notesApi.get<FetchNotesResponse>("/notes", {
     params: {
       page,
       search,
+      tag,
       perPage: NOTES_PER_PAGE,
     },
   });

@@ -1,15 +1,16 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import css from "./NoteDetails.client.module.css";
+import css from "./NoteDetailsSlot.client.module.css";
 
 import { fetchNoteById } from "@/lib/api";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Banner from "@/components/Banner/Banner";
-import Link from "next/link";
+import Modal from "@/components/Modal/Modal";
 import { formatDate } from "@/lib/util";
 
-export default function NoteDetailsClient() {
+export default function NoteDetailsSlotClient() {
+  const router = useRouter();
   const { id } = useParams<{ id: string }>();
 
   const {
@@ -24,16 +25,20 @@ export default function NoteDetailsClient() {
     refetchOnMount: false,
   });
 
+  function onModalClose() {
+    router.back();
+  }
+
   if (isLoading) return <Banner text="Loading" type="info" positionStatic />;
 
   if (isError || !note)
     return <Banner text="Something went wrong." type="error" positionStatic />;
 
   return (
-    <>
-      <Link href="/notes/filter/all" className={css.backBtn}>
-        Back to notes
-      </Link>
+    <Modal onClose={onModalClose}>
+      <button onClick={onModalClose} className={css.backBtn}>
+        Back
+      </button>
       <div className={css.container}>
         <div className={css.item}>
           <div className={css.header}>
@@ -46,6 +51,6 @@ export default function NoteDetailsClient() {
           </p>
         </div>
       </div>
-    </>
+    </Modal>
   );
 }
