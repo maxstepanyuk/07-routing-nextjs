@@ -25,8 +25,7 @@ export default function NotesPageClient() {
   const [isOpenModal, setIsModalOpen] = useState(false);
 
   const { data, isError, isFetching, isStale } = useQuery({
-    // todo: order matters? if yes update
-    queryKey: ["notes", currentPage, searchQuery, tagName],
+    queryKey: ["notes", tagName, searchQuery, currentPage],
     queryFn: () => {
       return fetchNotes(currentPage, searchQuery, tagName);
     },

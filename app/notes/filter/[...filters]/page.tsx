@@ -28,8 +28,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
   const searchQueryInit = "";
 
   await queryClient.prefetchQuery({
-    // todo: order matters? if yes update
-    queryKey: ["notes", currentPageInit, searchQueryInit, tagName],
+    queryKey: ["notes", tagName, searchQueryInit, currentPageInit],
     queryFn: () => {
       return fetchNotes(currentPageInit, searchQueryInit, tagName);
     },
